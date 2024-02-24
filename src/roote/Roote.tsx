@@ -1,3 +1,3 @@
 export const Roote = () => {
-  return <div>Root</div>;
+  return <div></div>;
 };
