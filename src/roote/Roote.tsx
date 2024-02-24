@@ -1,3 +1,9 @@
+import { Outlet } from "react-router-dom";
+
 export const Roote = () => {
-  return <div></div>;
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 };
