@@ -1,9 +1,9 @@
-import { Outlet } from "react-router-dom";
+
 
 export const Roote = () => {
   return (
     <div>
-      <Outlet />
+      <div>Hello world SERVICE TEROMATO EPH KHMIS MILIANA IS A SHIT</div>
     </div>
   );
 };
