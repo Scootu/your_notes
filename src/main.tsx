@@ -1,13 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  redirect,
+} from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store/store.tsx";
-import { Roote } from "./roote/Roote.tsx";
-
+import { store } from "./store/store.tsx";
+import { SigninPage } from "./pages/SigninPage.tsx";
+import { SignupPage } from "./pages/SignupPage.tsx";
 const router = createBrowserRouter([
-  { path: "/your_notes", element: <Roote /> },
+  {
+    path: "/your_notes/",
+    loader: () => {
+      return redirect("/your_notes/signin");
+    },
+  },
+  {
+    path: "/your_notes/signin",
+    element: <SigninPage />,
+  },
+  { path: "/your_notes/login", element: <SignupPage /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
