@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    ".src/components/**/*.{html,js}",
-    ".src/pages/**/*.{html,js}",
-    "./index.html",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'display': "Josefin Sans",
+      },
+    },
   },
   plugins: [],
 };

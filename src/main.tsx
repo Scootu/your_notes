@@ -9,7 +9,7 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./store/store.tsx";
 import { SigninPage } from "./pages/SigninPage.tsx";
-
+import { SignupPage } from "./pages/SignupPage.tsx";
 const router = createBrowserRouter([
   {
     path: "/your_notes/",
@@ -21,6 +21,7 @@ const router = createBrowserRouter([
     path: "/your_notes/signin",
     element: <SigninPage />,
   },
+  { path: "/your_notes/login", element: <SignupPage /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
