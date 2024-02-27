@@ -10,3 +10,7 @@
 body {
   font-family: "Josefin Sans", sans-serif;
 }
+
+.loader {
+  @apply w-[20px] h-[20px] rounded-[999px] border-t-white border-l-white border-b-white border-transparent border-2 mx-auto animate-spin ;
+}
