@@ -5,13 +5,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useActionData } from "react-router-dom";
+
 export const SigninPage = () => {
   type Errors = {
     email?: string;
     password?: string;
     confirmPassword?: string;
   };
+  interface Error {
+    userName?: string;
+    userPhone?: string;
+    birthdayYear?: string;
+  }
+
   const [passClick, setPassClick] = useState<boolean>(true);
   const [completB, setCompletB] = useState<boolean>(false);
   const [confiPassClick, setConfiPassClick] = useState<boolean>(true);
@@ -24,6 +31,9 @@ export const SigninPage = () => {
       Complete signup <FontAwesomeIcon icon={faArrowRight} />
     </span>
   );
+  const actionError = useActionData() as Error;
+
+  console.log(actionError);
 
   function checkErrors() {
     let errorArray: Errors = {};
@@ -97,7 +107,7 @@ export const SigninPage = () => {
           <h1 className="text-[3rem] text-center text-[#D375B9] font-bold mb-[1rem]">
             Signup{" "}
           </h1>
-          <Form className="">
+          <Form method="POST">
             <div className={completB ? "hidden" : "mb-[1.5rem] "}>
               <div className="w-full mb-[0.5rem]">
                 <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
@@ -185,6 +195,60 @@ export const SigninPage = () => {
                 )}
               </div>
             </div>
+            {completB && (
+              <div className={"mb-[1.5rem]"}>
+                <div className="w-full mb-[0.5rem]">
+                  <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
+                    Username
+                  </label>
+                  <input
+                    className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
+                    type="text"
+                    name="username"
+                  />
+                  {actionError !== undefined &&
+                    Object.hasOwn(actionError, "username") && (
+                      <p className="ml-[0.5rem] text-red-500">
+                        {actionError.userName}
+                      </p>
+                    )}
+                </div>
+                <div className="w-full mb-[0.5rem]">
+                  <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
+                    Phone
+                  </label>
+                  <input
+                    className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
+                    type="text"
+                    name="userPhone"
+                    pattern="05\d{8}|06\d{8}|07\d{8}"
+                    title="Please enter a valid phone number starting with 05, 06, or 07 followed by 8 digits"
+                  />
+                  {actionError !== undefined &&
+                    Object.hasOwn(actionError, "userPhone") && (
+                      <p className="ml-[0.5rem] text-red-500">
+                        {actionError.userPhone}
+                      </p>
+                    )}
+                </div>
+                <div className="w-full mb-[0.5rem]">
+                  <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
+                    Birthday Year
+                  </label>
+                  <input
+                    className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
+                    type="text"
+                    name="birthdayYear"
+                  />
+                  {actionError !== undefined &&
+                    Object.hasOwn(actionError, "birthdayYear") && (
+                      <p className="ml-[0.5rem] text-red-500">
+                        {actionError.birthdayYear}
+                      </p>
+                    )}
+                </div>
+              </div>
+            )}
             <button
               onClick={() => {
                 checkErrors();
@@ -196,7 +260,7 @@ export const SigninPage = () => {
                   );
                 }, 2000);
               }}
-              type="button"
+              type={completB ? "submit" : "button"}
               className="whitespace-nowrap text-[1.25rem] h-[50px] bg-[#D375B9] text-white font-bold rounded-md py-[10px] w-full mb-[1rem]"
             >
               {btnContent}
