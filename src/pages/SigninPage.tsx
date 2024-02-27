@@ -4,11 +4,66 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { Form, Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Form, Link, useActionData } from "react-router-dom";
+
 export const SigninPage = () => {
+  type Errors = {
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+  };
+  interface Error {
+    userName?: string;
+    userPhone?: string;
+    birthdayYear?: string;
+  }
+
   const [passClick, setPassClick] = useState<boolean>(true);
+  const [completB, setCompletB] = useState<boolean>(false);
   const [confiPassClick, setConfiPassClick] = useState<boolean>(true);
+  const inputEmail = useRef<HTMLInputElement>(null);
+  const inputPassword = useRef<HTMLInputElement>(null);
+  const confirmPassword = useRef<HTMLInputElement>(null);
+  const [listErrors, setListErrors] = useState<Errors>({});
+  const [btnContent, setBtnContent] = useState<JSX.Element>(
+    <span>
+      Complete signup <FontAwesomeIcon icon={faArrowRight} />
+    </span>
+  );
+  const actionError = useActionData() as Error;
+
+  console.log(actionError);
+
+  function checkErrors() {
+    let errorArray: Errors = {};
+
+    if (inputEmail.current!.value === "") {
+      errorArray.email = "Email must not be empty";
+    } else if (
+      !String(inputEmail.current!.value)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    ) {
+      errorArray.email = "Please enter a valid email address";
+    }
+
+    if (inputPassword.current!.value === "") {
+      errorArray.password = "Password must not be empty";
+    }
+    if (confirmPassword.current!.value !== inputPassword.current!.value) {
+      errorArray.confirmPassword = "Passwords do not match";
+    }
+
+    setListErrors(errorArray);
+
+    if (Object.keys(errorArray).length === 0) {
+      setCompletB(true);
+      setBtnContent(<div className="loader"></div>);
+    }
+  }
   return (
     <section
       className="w-full relative h-screen bg-no-repeat bg-cover"
@@ -52,8 +107,8 @@ export const SigninPage = () => {
           <h1 className="text-[3rem] text-center text-[#D375B9] font-bold mb-[1rem]">
             Signup{" "}
           </h1>
-          <Form className="">
-            <div className="mb-[1.5rem] ">
+          <Form method="POST">
+            <div className={completB ? "hidden" : "mb-[1.5rem] "}>
               <div className="w-full mb-[0.5rem]">
                 <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
                   Email
@@ -63,7 +118,11 @@ export const SigninPage = () => {
                   type="email"
                   name="userEmail"
                   required
+                  ref={inputEmail}
                 />
+                {Object.hasOwn(listErrors, "email") && (
+                  <p className="ml-[0.5rem] text-red-500">{listErrors.email}</p>
+                )}
               </div>
               <div className="w-full mb-[0.5rem] relative">
                 <label className="block mb-[0.5rem] text-[#697386] font-bold ml-[0.5rem]">
@@ -75,6 +134,7 @@ export const SigninPage = () => {
                   name="userPassword"
                   maxLength={32}
                   required
+                  ref={inputPassword}
                 />
                 {!passClick ? (
                   <FontAwesomeIcon
@@ -93,6 +153,11 @@ export const SigninPage = () => {
                     }}
                   />
                 )}
+                {Object.hasOwn(listErrors, "password") && (
+                  <p className="ml-[0.5rem] text-red-500">
+                    {listErrors.password}
+                  </p>
+                )}
               </div>
               <div className="w-full mb-[0.5rem] relative">
                 <label className="block mb-[0.5rem] text-[#697386] font-bold ml-[0.5rem]">
@@ -104,6 +169,7 @@ export const SigninPage = () => {
                   name="confirmPassword"
                   maxLength={32}
                   required
+                  ref={confirmPassword}
                 />
                 {!confiPassClick ? (
                   <FontAwesomeIcon
@@ -122,13 +188,82 @@ export const SigninPage = () => {
                     }}
                   />
                 )}
+                {Object.hasOwn(listErrors, "confirmPassword") && (
+                  <p className="ml-[0.5rem] text-red-500">
+                    {listErrors.confirmPassword}
+                  </p>
+                )}
               </div>
             </div>
+            {completB && (
+              <div className={"mb-[1.5rem]"}>
+                <div className="w-full mb-[0.5rem]">
+                  <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
+                    Username
+                  </label>
+                  <input
+                    className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
+                    type="text"
+                    name="username"
+                  />
+                  {actionError !== undefined &&
+                    Object.hasOwn(actionError, "username") && (
+                      <p className="ml-[0.5rem] text-red-500">
+                        {actionError.userName}
+                      </p>
+                    )}
+                </div>
+                <div className="w-full mb-[0.5rem]">
+                  <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
+                    Phone
+                  </label>
+                  <input
+                    className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
+                    type="text"
+                    name="userPhone"
+                    pattern="05\d{8}|06\d{8}|07\d{8}"
+                    title="Please enter a valid phone number starting with 05, 06, or 07 followed by 8 digits"
+                  />
+                  {actionError !== undefined &&
+                    Object.hasOwn(actionError, "userPhone") && (
+                      <p className="ml-[0.5rem] text-red-500">
+                        {actionError.userPhone}
+                      </p>
+                    )}
+                </div>
+                <div className="w-full mb-[0.5rem]">
+                  <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
+                    Birthday Year
+                  </label>
+                  <input
+                    className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
+                    type="text"
+                    name="birthdayYear"
+                  />
+                  {actionError !== undefined &&
+                    Object.hasOwn(actionError, "birthdayYear") && (
+                      <p className="ml-[0.5rem] text-red-500">
+                        {actionError.birthdayYear}
+                      </p>
+                    )}
+                </div>
+              </div>
+            )}
             <button
-              type="button"
-              className="text-[1.25rem] bg-[#D375B9] text-white font-bold rounded-md py-[10px] w-full mb-[1rem]"
+              onClick={() => {
+                checkErrors();
+                setTimeout(() => {
+                  setBtnContent(
+                    <span>
+                      Complete signup <FontAwesomeIcon icon={faArrowRight} />
+                    </span>
+                  );
+                }, 2000);
+              }}
+              type={completB ? "submit" : "button"}
+              className="whitespace-nowrap text-[1.25rem] h-[50px] bg-[#D375B9] text-white font-bold rounded-md py-[10px] w-full mb-[1rem]"
             >
-              Complete signup <FontAwesomeIcon icon={faArrowRight} />
+              {btnContent}
             </button>
           </Form>
           <div>

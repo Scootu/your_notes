@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.tsx";
 import { SigninPage } from "./pages/SigninPage.tsx";
 import { SignupPage } from "./pages/SignupPage.tsx";
+import { Error } from "./@types/Types.ts";
 const router = createBrowserRouter([
   {
     path: "/your_notes/",
@@ -20,6 +21,24 @@ const router = createBrowserRouter([
   {
     path: "/your_notes/signin",
     element: <SigninPage />,
+    action: async ({ request }) => {
+      interface Error {
+        [key: string]: string; // Allow any string key and string value
+      }
+
+      let errors: Error = {}; // Initialize errors object
+      const formData = await request.formData();
+
+      for (const [name, value] of formData.entries()) {
+        if (value === "") {
+          errors[name] = `${name} needs to be not empty`;
+        }
+      }
+      if (Object.values(errors).length === 0) {
+        return redirect("/your_notes/login");
+      }
+      return errors;
+    },
   },
   { path: "/your_notes/login", element: <SignupPage /> },
 ]);
