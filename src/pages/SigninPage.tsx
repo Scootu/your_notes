@@ -2,6 +2,7 @@ import {
   faArrowRight,
   faEye,
   faEyeSlash,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
@@ -14,7 +15,7 @@ export const SigninPage = () => {
     confirmPassword?: string;
   };
   interface Error {
-    userName?: string;
+    username?: string;
     userPhone?: string;
     birthdayYear?: string;
   }
@@ -31,6 +32,9 @@ export const SigninPage = () => {
       Complete signup <FontAwesomeIcon icon={faArrowRight} />
     </span>
   );
+  const [btnType, setBtnType] = useState<
+    "button" | "submit" | "reset" | undefined
+  >("button");
   const actionError = useActionData() as Error;
 
   console.log(actionError);
@@ -72,7 +76,7 @@ export const SigninPage = () => {
           "url('https://i.ibb.co/FWkgJPj/Cover-f8bcdcbc9989dfb1192a.png')",
       }}
     >
-      <div className="grid grid-cols-2 containerX py-[60px]  px-[80px] mx-auto h-full">
+      <div className="grid grid-cols-2 containerX py-[30px]  px-[80px] mx-auto h-full">
         <div
           className="w-full p-[20px] bg-cover"
           style={{
@@ -104,8 +108,8 @@ export const SigninPage = () => {
           </div>
         </div>
         <div className="py-[25px] px-[40px] bg-white">
-          <h1 className="text-[3rem] text-center text-[#D375B9] font-bold mb-[1rem]">
-            Signup{" "}
+          <h1 className="text-[2rem] text-center text-[#D375B9] font-bold mb-[0.5rem]">
+            {!completB ? <span>Signup</span> : <span>Complete Signup</span>}
           </h1>
           <Form method="POST">
             <div className={completB ? "hidden" : "mb-[1.5rem] "}>
@@ -132,6 +136,7 @@ export const SigninPage = () => {
                   className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
                   type={passClick ? "password" : "text"}
                   name="userPassword"
+                  minLength={8}
                   maxLength={32}
                   required
                   ref={inputPassword}
@@ -196,8 +201,8 @@ export const SigninPage = () => {
               </div>
             </div>
             {completB && (
-              <div className={"mb-[1.5rem]"}>
-                <div className="w-full mb-[0.5rem]">
+              <div className={"mb-[0.25rem]"}>
+                <div className="w-full mb-[0.25rem]">
                   <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
                     Username
                   </label>
@@ -209,17 +214,17 @@ export const SigninPage = () => {
                   {actionError !== undefined &&
                     Object.hasOwn(actionError, "username") && (
                       <p className="ml-[0.5rem] text-red-500">
-                        {actionError.userName}
+                        {actionError.username}
                       </p>
                     )}
                 </div>
-                <div className="w-full mb-[0.5rem]">
+                <div className="w-full mb-[0.25rem]">
                   <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
                     Phone
                   </label>
                   <input
                     className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
-                    type="text"
+                    type="number"
                     name="userPhone"
                     pattern="05\d{8}|06\d{8}|07\d{8}"
                     title="Please enter a valid phone number starting with 05, 06, or 07 followed by 8 digits"
@@ -231,14 +236,15 @@ export const SigninPage = () => {
                       </p>
                     )}
                 </div>
-                <div className="w-full mb-[0.5rem]">
+                <div className="w-full mb-[0.25rem]">
                   <label className="block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem]">
                     Birthday Year
                   </label>
                   <input
                     className="w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal "
-                    type="text"
+                    type="number"
                     name="birthdayYear"
+                    maxLength={4}
                   />
                   {actionError !== undefined &&
                     Object.hasOwn(actionError, "birthdayYear") && (
@@ -249,22 +255,37 @@ export const SigninPage = () => {
                 </div>
               </div>
             )}
+
             <button
               onClick={() => {
                 checkErrors();
                 setTimeout(() => {
+                  setBtnContent(<span>Signup</span>);
+                  setBtnType("submit");
+                }, 500);
+              }}
+              type={btnType}
+              className="whitespace-nowrap text-[1.25rem] h-[50px] bg-[#D375B9] text-white font-bold rounded-md py-[10px] w-full mb-[0.25rem]"
+            >
+              {btnContent}
+            </button>
+            {completB && (
+              <button
+                type="button"
+                onClick={() => {
+                  setCompletB(false);
+                  setBtnType("button");
                   setBtnContent(
                     <span>
                       Complete signup <FontAwesomeIcon icon={faArrowRight} />
                     </span>
                   );
-                }, 2000);
-              }}
-              type={completB ? "submit" : "button"}
-              className="whitespace-nowrap text-[1.25rem] h-[50px] bg-[#D375B9] text-white font-bold rounded-md py-[10px] w-full mb-[1rem]"
-            >
-              {btnContent}
-            </button>
+                }}
+                className="whitespace-nowrap text-[1.25rem] h-[50px] bg-[#697386] text-white font-bold rounded-md py-[10px] w-full "
+              >
+                Back <FontAwesomeIcon icon={faArrowLeft} />
+              </button>
+            )}
           </Form>
           <div>
             <p className="text-[#697386] text-center">
