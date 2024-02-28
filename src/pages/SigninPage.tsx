@@ -5,10 +5,25 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import i18next from "i18next";
 import { useRef, useState } from "react";
+import { initReactI18next, useTranslation } from "react-i18next";
 import { Form, Link, useActionData } from "react-router-dom";
 
+i18next.use(initReactI18next).init({
+  lng: "en",
+  resources: {
+    en: {
+      translation: {
+        Signup: "إنشاء حساب",
+      },
+    },
+  },
+});
+
 export const SigninPage = () => {
+  const { t } = useTranslation();
+  console.log(i18next.t("Your Notes"));
   type Errors = {
     email?: string;
     password?: string;
@@ -35,6 +50,7 @@ export const SigninPage = () => {
   const [btnType, setBtnType] = useState<
     "button" | "submit" | "reset" | undefined
   >("button");
+  // const [laPage, setLaPage] = useState<boolean>(true);
   const actionError = useActionData() as Error;
 
   console.log(actionError);
@@ -76,14 +92,20 @@ export const SigninPage = () => {
           "url('https://i.ibb.co/FWkgJPj/Cover-f8bcdcbc9989dfb1192a.png')",
       }}
     >
-      <div className="grid grid-cols-2 containerX py-[30px]  px-[80px] mx-auto h-full">
+      <div className="grid grid-cols-2 containerX py-[30px]  px-[80px] mx-auto h-full relative">
         <div
-          className="w-full p-[20px] bg-cover"
+          className="w-full p-[20px] bg-cover relative"
           style={{
             backgroundImage:
               "url('https://i.ibb.co/y5fPW3p/Logo-Cover-a5ba67c981627275ccc5.png')",
           }}
         >
+          <div className=" cursor-pointer  absolute bottom-0 left-0  w-0 h-0  border-transparent border-l-0 border-r-[80px] border-b-red-700 border-b-[80px]">
+            <div className="text-white text-[2rem] p-2 relative top-[35px] ">
+              Ar
+            </div>
+          </div>
+
           <div className="px-[10px] py-[20px] h-full ">
             <div className="grid justify-center backdrop-blur-sm bg-white/30 h-full ">
               <div className="flex flex-col items-center justify-center">
@@ -101,7 +123,7 @@ export const SigninPage = () => {
                   ></path>
                 </svg>
                 <h1 className="text-white text-[3.5rem] font-normal my-[0.67rem] tracking-wider">
-                  Your Notes
+                  {t("Your Notes")}
                 </h1>
               </div>
             </div>
@@ -109,7 +131,11 @@ export const SigninPage = () => {
         </div>
         <div className="py-[25px] px-[40px] bg-white">
           <h1 className="text-[2rem] text-center text-[#D375B9] font-bold mb-[0.5rem]">
-            {!completB ? <span>Signup</span> : <span>Complete Signup</span>}
+            {!completB ? (
+              <span>Signup</span>
+            ) : (
+              <span>Complete Signup</span>
+            )}
           </h1>
           <Form method="POST">
             <div className={completB ? "hidden" : "mb-[1.5rem] "}>
@@ -124,7 +150,7 @@ export const SigninPage = () => {
                   required
                   ref={inputEmail}
                 />
-                {Object.hasOwn(listErrors, "email") && (
+                {listErrors.hasOwnProperty("email") && (
                   <p className="ml-[0.5rem] text-red-500">{listErrors.email}</p>
                 )}
               </div>
@@ -158,7 +184,7 @@ export const SigninPage = () => {
                     }}
                   />
                 )}
-                {Object.hasOwn(listErrors, "password") && (
+                {listErrors.hasOwnProperty("password") && (
                   <p className="ml-[0.5rem] text-red-500">
                     {listErrors.password}
                   </p>
@@ -193,7 +219,7 @@ export const SigninPage = () => {
                     }}
                   />
                 )}
-                {Object.hasOwn(listErrors, "confirmPassword") && (
+                {listErrors.hasOwnProperty("confirmPassword") && (
                   <p className="ml-[0.5rem] text-red-500">
                     {listErrors.confirmPassword}
                   </p>
@@ -212,7 +238,7 @@ export const SigninPage = () => {
                     name="username"
                   />
                   {actionError !== undefined &&
-                    Object.hasOwn(actionError, "username") && (
+                    actionError.hasOwnProperty("username") && (
                       <p className="ml-[0.5rem] text-red-500">
                         {actionError.username}
                       </p>
@@ -230,7 +256,7 @@ export const SigninPage = () => {
                     title="Please enter a valid phone number starting with 05, 06, or 07 followed by 8 digits"
                   />
                   {actionError !== undefined &&
-                    Object.hasOwn(actionError, "userPhone") && (
+                    actionError.hasOwnProperty("userPhone") && (
                       <p className="ml-[0.5rem] text-red-500">
                         {actionError.userPhone}
                       </p>
@@ -247,7 +273,7 @@ export const SigninPage = () => {
                     maxLength={4}
                   />
                   {actionError !== undefined &&
-                    Object.hasOwn(actionError, "birthdayYear") && (
+                    actionError.hasOwnProperty("birthdayYear") && (
                       <p className="ml-[0.5rem] text-red-500">
                         {actionError.birthdayYear}
                       </p>
