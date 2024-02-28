@@ -1,5 +1,5 @@
 export default interface ErrorAction {
-    userName?: string;
+    username?: string;
     userPhone?: string;
     birthdayYear?: string;
   }
