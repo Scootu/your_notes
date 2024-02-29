@@ -18,6 +18,11 @@ i18next.use(initReactI18next).init({
         Signup: "إنشاء حساب",
       },
     },
+    ar: {
+      translation: {
+        "Complete Signup": "إكمال إنشاء حساب",
+      },
+    },
   },
 });
 
@@ -123,7 +128,7 @@ export const SigninPage = () => {
                   ></path>
                 </svg>
                 <h1 className="text-white text-[3.5rem] font-normal my-[0.67rem] tracking-wider">
-                  {t("Your Notes")}
+                  {"Your Notes"}
                 </h1>
               </div>
             </div>
@@ -134,7 +139,7 @@ export const SigninPage = () => {
             {!completB ? (
               <span>Signup</span>
             ) : (
-              <span>Complete Signup</span>
+              <span>{t("Complete Signup", { lng: "ar" })}</span>
             )}
           </h1>
           <Form method="POST">
