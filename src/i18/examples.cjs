@@ -49,5 +49,5 @@ const author = {
 };
 i18next.t("key", { name: "<img />" });
 // -> "I am Jan"
-const ret = i18next.t("cake", { count: 3});
+const ret = i18next.t("cake", { count: 3 }); //3 items
 console.log(ret);
