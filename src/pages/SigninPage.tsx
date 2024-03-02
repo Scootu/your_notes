@@ -73,7 +73,6 @@ export const SigninPage = () => {
 
     if (Object.keys(errorArray).length === 0) {
       setCompletB(true);
-      setBtnContent(<div className="loader"></div>);
     }
   }
   const yourNotes = (
