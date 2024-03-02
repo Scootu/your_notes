@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.tsx";
 import { SigninPage } from "./pages/SigninPage.tsx";
 import { SignupPage } from "./pages/SignupPage.tsx";
+import "./i18/i18next";
 const router = createBrowserRouter([
   {
     path: "/your_notes/",

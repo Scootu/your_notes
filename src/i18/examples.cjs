@@ -39,6 +39,10 @@ i18next.init({
         cake_one: "item",
         cake_two: "two items",
         cake_other: "{{count}} items",
+        persone: "one persone",
+        persone_male: "man",
+        persone_female: "woman",
+        persone_other: "{{count}} persones",
       },
     },
   },
@@ -49,5 +53,5 @@ const author = {
 };
 i18next.t("key", { name: "<img />" });
 // -> "I am Jan"
-const ret = i18next.t("cake", { count: 3 }); //3 items
+const ret = i18next.t("persone", { context: "other", count: 3 }); //3 items
 console.log(ret);
