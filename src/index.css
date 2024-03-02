@@ -12,5 +12,16 @@ body {
 }
 
 .loader {
-  @apply w-[20px] h-[20px] rounded-[999px] border-t-white border-l-white border-b-white border-transparent border-2 mx-auto animate-spin ;
+  @apply w-[20px] h-[20px] rounded-[999px] border-t-white border-l-white border-b-white border-transparent border-2 mx-auto animate-spin;
+}
+.validationInput {
+  @apply block mb-[0.4rem] text-[#697386] font-bold ml-[0.5rem];
+}
+.inputValideError {
+  @apply w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal;
+}
+@layer utilities {
+  .direction {
+    direction: rtl;
+  }
 }
