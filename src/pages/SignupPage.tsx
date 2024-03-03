@@ -135,12 +135,12 @@ export const SignupPage = () => {
         </button>
       </Form>
       <div className="text-center">
-        <span className="text-[#697386] inline  whitespace-nowrap ml-[0.5rem]">
-          {t("Don't have an account!")}
+        <span className="text-[#697386] block ml-[0.5rem]">
+         {t("Don't have an account!")}
         </span>
         <Link
           to={"/your_notes/signin"}
-          className="text-[#D375B9] inline text-[1rem] font-bold  w-full ml-[0.25rem]"
+          className="text-[#D375B9]  text-[1rem] font-bold  w-full ml-[0.25rem]"
         >
           {t("Signup")}
         </Link>
