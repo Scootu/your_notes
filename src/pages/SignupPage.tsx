@@ -6,7 +6,6 @@ import { Form, Link, useActionData } from "react-router-dom";
 export const SignupPage = () => {
   const { t, i18n } = useTranslation();
   const [passClick, setPassClick] = useState<boolean>(true);
-  const [btnContent, setBtnContent] = useState<JSX.Element>(<span>Login</span>);
   interface Error {
     userEmail?: string;
     userPassword?: string;
@@ -125,12 +124,6 @@ export const SignupPage = () => {
           </div>
         </div>
         <button
-          onClick={() => {
-            setBtnContent(<div className="loader"></div>);
-            setTimeout(() => {
-              setBtnContent(<span>{t("Signup")}</span>);
-            }, 500);
-          }}
           type={"submit"}
           className="whitespace-nowrap text-[1.25rem] h-[50px] bg-[#D375B9] text-white font-bold rounded-md py-[10px] w-full mb-[0.5rem]"
         >
@@ -142,12 +135,12 @@ export const SignupPage = () => {
         </button>
       </Form>
       <div className="text-center">
-        <span className="text-[#697386] inline  whitespace-nowrap ml-[0.5rem]">
-          {t("Don't have an account!")}
+        <span className="text-[#697386] block ml-[0.5rem]">
+         {t("Don't have an account!")}
         </span>
         <Link
           to={"/your_notes/signin"}
-          className="text-[#D375B9] inline text-[1rem] font-bold  w-full ml-[0.25rem]"
+          className="text-[#D375B9]  text-[1rem] font-bold  w-full ml-[0.25rem]"
         >
           {t("Signup")}
         </Link>
