@@ -20,8 +20,8 @@ export const SignupPage = () => {
     ar: { nativeName: "Ar" },
   };
   const mainContent = (
-    <div className="py-[40px] px-[40px] bg-white flex flex-col justify-center">
-      <h1 className="text-[2rem] text-center text-[#D375B9] font-bold mb-[1.5rem]">
+    <div className= "p-[15px] md:py-[40px] md:px-[40px] bg-white flex flex-col justify-center">
+      <h1 className="text-[2.7rem] md:text-[2rem] text-center text-[#D375B9] font-bold mb-[1.5rem]">
         {<span>{t("Login")}</span>}
       </h1>
       <Form method="POST">
@@ -136,7 +136,7 @@ export const SignupPage = () => {
       </Form>
       <div className="text-center">
         <span className="text-[#697386] block ml-[0.5rem]">
-         {t("Don't have an account!")}
+          {t("Don't have an account!")}
         </span>
         <Link
           to={"/your_notes/signin"}
@@ -150,13 +150,13 @@ export const SignupPage = () => {
 
   const yourNotes = (
     <div
-      className="w-full p-[20px] bg-cover relative"
+      className="w-full md:p-[20px] p-[5px] bg-cover relative "
       style={{
         backgroundImage:
           "url('https://i.ibb.co/y5fPW3p/Logo-Cover-a5ba67c981627275ccc5.png')",
       }}
     >
-      <div className=" cursor-pointer absolute bottom-0 left-0  w-0 h-0  border-transparent border-l-0 border-r-[80px] border-b-red-700 border-b-[80px]">
+      <div className=" cursor-pointer absolute bottom-0 left-0  w-0 h-0  border-transparent border-l-0 border-r-[80px] md:border-b-red-700 border-b-[80px]">
         <div className="text-white text-[2rem] p-2 relative top-[35px] ">
           {Object.keys(lngs).map((lng) => (
             <button
@@ -173,9 +173,9 @@ export const SignupPage = () => {
           ))}
         </div>
       </div>
-      <div className="px-[10px] py-[20px] h-full ">
+      <div className="px-[5px] py-[45px] h-full ">
         <div className="grid justify-center backdrop-blur-sm bg-white/30 h-full ">
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center py-[15px]  md:p-0">
             <svg
               width="70"
               height="66"
@@ -189,7 +189,7 @@ export const SignupPage = () => {
                 fill="white"
               ></path>
             </svg>
-            <h1 className="text-white text-[3.5rem] font-normal my-[0.67rem] tracking-wider">
+            <h1 className="text-white text-[2.5rem]  md:text-[3.5rem] md:font-normal my-[0.67rem] tracking-wider">
               {"Your Notes"}
             </h1>
           </div>
@@ -205,15 +205,22 @@ export const SignupPage = () => {
           "url('https://i.ibb.co/FWkgJPj/Cover-f8bcdcbc9989dfb1192a.png')",
       }}
     >
-      <div className="grid grid-cols-2 containerX py-[30px]  px-[80px] mx-auto h-full">
-        {i18n.resolvedLanguage == "en" && (
+      <div className="grid md:grid-cols-2 containerX py-[30px] px-[15px] md:py-[30px]  md:px-[80px] mx-auto h-full">
+        {i18n.resolvedLanguage == "en" &&
+          !/Mobile|Android/.test(navigator.userAgent) && (
+            <>
+              {yourNotes} {mainContent}
+            </>
+          )}
+        {i18n.resolvedLanguage == "ar" &&
+          !/Mobile|Android/.test(navigator.userAgent) && (
+            <>
+              {mainContent} {yourNotes}
+            </>
+          )}
+        {/Mobile|Android/.test(navigator.userAgent) && (
           <>
             {yourNotes} {mainContent}
-          </>
-        )}
-        {i18n.resolvedLanguage == "ar" && (
-          <>
-            {mainContent} {yourNotes}
           </>
         )}
       </div>
