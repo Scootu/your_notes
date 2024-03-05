@@ -64,6 +64,28 @@ export const SigninPage = () => {
 
     if (inputPassword.current!.value === "") {
       errorArray.password = "Password must not be empty";
+    } else {
+      const password = inputPassword.current!.value.toString();
+      // Check if password meets the criteria for a strong password
+      if (
+        !(
+          (
+            password.length >= 8 &&
+            /[a-z]/.test(password) && // At least one lowercase letter
+            /[A-Z]/.test(password) && // At least one uppercase letter
+            /\d/.test(password) && // At least one digit
+            /[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=]/.test(password)
+          ) // At least one special character
+        )
+      ) {
+        if (i18n.resolvedLanguage == "en") {
+          errorArray.password =
+            "Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and special characters";
+        } else {
+          errorArray.password =
+            "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتتضمن أحرفًا كبيرة وصغيرة وأرقامًا وأحرفًا خاصة";
+        }
+      }
     }
     if (confirmPassword.current!.value !== inputPassword.current!.value) {
       errorArray.confirmPassword = "Passwords do not match";
@@ -77,13 +99,13 @@ export const SigninPage = () => {
   }
   const yourNotes = (
     <div
-      className="w-full p-[20px] bg-cover relative"
+      className="w-full md:p-[20px] p-[5px] bg-cover relative "
       style={{
         backgroundImage:
           "url('https://i.ibb.co/y5fPW3p/Logo-Cover-a5ba67c981627275ccc5.png')",
       }}
     >
-      <div className=" cursor-pointer absolute bottom-0 left-0  w-0 h-0  border-transparent border-l-0 border-r-[80px] border-b-red-700 border-b-[80px]">
+      <div className=" cursor-pointer absolute bottom-0 left-0  w-0 h-0  border-transparent border-l-0 border-r-[80px] md:border-b-red-700 border-b-[80px]">
         <div className="text-white text-[2rem] p-2 relative top-[35px] ">
           {Object.keys(lngs).map((lng) => (
             <button
@@ -100,9 +122,9 @@ export const SigninPage = () => {
           ))}
         </div>
       </div>
-      <div className="px-[10px] py-[20px] h-full ">
+      <div className="px-[5px] py-[45px]  md:px-[10px] md:py-[20px] h-full ">
         <div className="grid justify-center backdrop-blur-sm bg-white/30 h-full ">
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center py-[15px]  md:p-0">
             <svg
               width="70"
               height="66"
@@ -116,7 +138,7 @@ export const SigninPage = () => {
                 fill="white"
               ></path>
             </svg>
-            <h1 className="text-white text-[3.5rem] font-normal my-[0.67rem] tracking-wider">
+            <h1 className="text-white text-[2.5rem]  md:text-[3.5rem] font-normal my-[0.67rem] tracking-wider">
               {"Your Notes"}
             </h1>
           </div>
@@ -124,8 +146,8 @@ export const SigninPage = () => {
       </div>
     </div>
   );
-  const mainElement = (
-    <div className="py-[25px] px-[40px] bg-white">
+  const mainContent = (
+    <div className="p-[15px] md:py-[25px] md:px-[40px] bg-white">
       <h1 className="text-[2rem] text-center text-[#D375B9] font-bold mb-[0.5rem]">
         {!completB ? (
           <span>{t("Signup")}</span>
@@ -456,7 +478,7 @@ export const SigninPage = () => {
           to={"/your_notes/login"}
           className="text-[#D375B9] text-[1rem] font-bold  w-full block text-center"
         >
-          {t('Login')}
+          {t("Login")}
         </Link>
       </div>
     </div>
@@ -469,15 +491,22 @@ export const SigninPage = () => {
           "url('https://i.ibb.co/FWkgJPj/Cover-f8bcdcbc9989dfb1192a.png')",
       }}
     >
-      <div className="grid grid-cols-2 containerX py-[30px]  px-[80px] mx-auto h-full relative">
-        {i18n.resolvedLanguage == "en" && (
+      <div className="grid md:grid-cols-2 containerX py-[30px] px-[15px] md:py-[30px]  md:px-[80px] mx-auto h-full">
+        {i18n.resolvedLanguage == "en" &&
+          !/Mobile|Android/.test(navigator.userAgent) && (
+            <>
+              {yourNotes} {mainContent}
+            </>
+          )}
+        {i18n.resolvedLanguage == "ar" &&
+          !/Mobile|Android/.test(navigator.userAgent) && (
+            <>
+              {mainContent} {yourNotes}
+            </>
+          )}
+        {/Mobile|Android/.test(navigator.userAgent) && (
           <>
-            {yourNotes} {mainElement}
-          </>
-        )}
-        {i18n.resolvedLanguage == "ar" && (
-          <>
-            {mainElement} {yourNotes}
+            {yourNotes} {mainContent}
           </>
         )}
       </div>
