@@ -64,6 +64,28 @@ export const SigninPage = () => {
 
     if (inputPassword.current!.value === "") {
       errorArray.password = "Password must not be empty";
+    } else {
+      const password = inputPassword.current!.value.toString();
+      // Check if password meets the criteria for a strong password
+      if (
+        !(
+          (
+            password.length >= 8 &&
+            /[a-z]/.test(password) && // At least one lowercase letter
+            /[A-Z]/.test(password) && // At least one uppercase letter
+            /\d/.test(password) && // At least one digit
+            /[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=]/.test(password)
+          ) // At least one special character
+        )
+      ) {
+        if (i18n.resolvedLanguage == "en") {
+          errorArray.password =
+            "Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and special characters";
+        } else {
+          errorArray.password =
+            "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتتضمن أحرفًا كبيرة وصغيرة وأرقامًا وأحرفًا خاصة";
+        }
+      }
     }
     if (confirmPassword.current!.value !== inputPassword.current!.value) {
       errorArray.confirmPassword = "Passwords do not match";

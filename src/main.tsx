@@ -34,8 +34,8 @@ const router = createBrowserRouter([
           errors[name] = `${name} needs to be not empty`;
         }
         let valN: string = value.toString();
-        console.log(valN);
 
+     
         if (name === "birthdayYear" && isNaN(parseInt(valN))) {
           errors[name] = "birthday year need to be a number";
         } else if (
