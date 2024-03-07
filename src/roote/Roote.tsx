@@ -1,9 +1,11 @@
+import { Outlet } from "react-router-dom";
+import { NavBar } from "../components/NavBar";
 
-
-export const Roote = () => {
+export const Roote: React.FC = () => {
   return (
     <div>
-      <div>Hello world SERVICE TEROMATO EPH KHMIS MILIANA IS A SHIT</div>
+      <NavBar />
+      <Outlet />
     </div>
   );
 };
