@@ -35,6 +35,9 @@ i18next
           Phone: "Phone",
           BirthdayYear: "Birthday Year",
         },
+        home: {
+          YourNotes: "Your notes",
+        },
       },
       ar: {
         translation: {
@@ -59,6 +62,9 @@ i18next
           Username: "إسم المستخدم",
           Phone: "رقم الهاتف",
           BirthdayYear: "سنة الميلاد",
+        },
+        home: {
+          YourNotes: "ملاحظاتك",
         },
       },
     },

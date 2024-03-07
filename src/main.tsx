@@ -11,6 +11,9 @@ import { store } from "./store/store.tsx";
 import { SigninPage } from "./pages/SigninPage.tsx";
 import { SignupPage } from "./pages/SignupPage.tsx";
 import "./i18/i18next";
+import { HomePage } from "./pages/HomePage.tsx";
+import { Roote } from "./roote/Roote.tsx";
+import { EditPage } from "./pages/EditPage.tsx";
 const router = createBrowserRouter([
   {
     path: "/your_notes/",
@@ -35,7 +38,6 @@ const router = createBrowserRouter([
         }
         let valN: string = value.toString();
 
-     
         if (name === "birthdayYear" && isNaN(parseInt(valN))) {
           errors[name] = "birthday year need to be a number";
         } else if (
@@ -90,6 +92,24 @@ const router = createBrowserRouter([
       }
       return errors;
     },
+  },
+  {
+    path: "/your_notes/home",
+    element: <Roote />,
+    children: [
+      {
+        path: "",
+        element: <HomePage />,
+      },
+      {
+        path: "edit/",
+        element: <EditPage />,
+      },
+    ],
+    // loader: () => {
+    //   //check if user existe
+    //   return redirect("/your_notes/login");
+    // },
   },
 ]);
 
