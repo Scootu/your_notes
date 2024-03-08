@@ -22,6 +22,24 @@ const router = createBrowserRouter([
     },
   },
   {
+    path: "/your_notes/home",
+    element: <Roote />,
+    children: [
+      {
+        path: "",
+        element: <HomePage />,
+      },
+      {
+        path: "edit/",
+        element: <EditPage />,
+      },
+    ],
+    // loader: () => {
+    //   //check if user existe
+    //   return redirect("/your_notes/login");
+    // },
+  },
+  {
     path: "/your_notes/signin",
     element: <SigninPage />,
     action: async ({ request }) => {
@@ -92,24 +110,6 @@ const router = createBrowserRouter([
       }
       return errors;
     },
-  },
-  {
-    path: "/your_notes/home",
-    element: <Roote />,
-    children: [
-      {
-        path: "",
-        element: <HomePage />,
-      },
-      {
-        path: "edit/",
-        element: <EditPage />,
-      },
-    ],
-    // loader: () => {
-    //   //check if user existe
-    //   return redirect("/your_notes/login");
-    // },
   },
 ]);
 

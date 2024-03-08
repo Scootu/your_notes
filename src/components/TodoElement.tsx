@@ -10,7 +10,7 @@ export const TodoElement: React.FC<{
     setIsCompleted(is);
   };
   return (
-    <li className=" flex items-center border-b px-4 py-2 gap-3 w-full dark:bg-[#25273D] ">
+    <li className=" flex items-center border-b border-b-[#4c4d57] px-4 py-2 gap-3 w-full dark:bg-[#25273D] ">
       <CheckTodo clickCheck={toggleTodoState} />
       <p
         className={

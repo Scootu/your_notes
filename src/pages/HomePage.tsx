@@ -17,9 +17,9 @@ export const HomePage: React.FC = () => {
           }}
         >
           {!isClickCheck ? (
-            <div className="w-[30px] h-[30px] border rounded-full"></div>
+            <div className="w-[30px] h-[30px] border dark:border-[#4c4d57] rounded-full"></div>
           ) : (
-            <div className=" w-[30px] h-[30px] border rounded-full bg-[#D375B9] flex justify-center items-center ">
+            <div className=" w-[30px] h-[30px] border dark:border-transparent rounded-full bg-[#D375B9] flex justify-center items-center ">
               <FontAwesomeIcon className="text-white" icon={faCheck} />
             </div>
           )}
@@ -33,7 +33,7 @@ export const HomePage: React.FC = () => {
       </div>
       <div className=" w-full relative  shadow flex justify-center">
         <div className="absolute w-full bg-white rounded-t-md sm:max-w-[540px] ">
-          <ul className="">
+          <ul className="max-h-[340px] overflow-y-scroll">
             <TodoElement message={"Complete online javascirt course"} />
             <TodoElement message={"Complete online javascirt course"} />
             <TodoElement message={"Complete online javascirt course"} />
