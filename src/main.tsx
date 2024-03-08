@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   {
     path: "/your_notes/",
     loader: () => {
-      return redirect("/your_notes/signin");
+      return redirect("/your_notes/home");
     },
   },
   {
