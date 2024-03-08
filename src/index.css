@@ -20,6 +20,9 @@ body {
 .inputValideError {
   @apply w-full shadow border py-[9px] px-[12px] rounded-lg outline-none font-normal;
 }
+.inputHomeStyle {
+  @apply bg-white dark:bg-[#25273D] dark:text-[#767992]  w-full;
+}
 @layer utilities {
   .direction {
     direction: rtl;

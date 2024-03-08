@@ -1,9 +1,10 @@
-import { faMoon, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faUser, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export const NavBar: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
   interface Language {
     nativeName: string;
@@ -13,13 +14,40 @@ export const NavBar: React.FC = () => {
     en: { nativeName: "En" },
     ar: { nativeName: "Ar" },
   };
+  useEffect(() => {
+    // Check if dark mode is preferred by user or OS
+    // const prefersDarkMode =
+    //   localStorage.theme === "dark" ||
+    //   (!("theme" in localStorage) &&
+    //     window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+    // // Set initial dark mode state
+    // setIsDarkMode(prefersDarkMode);
+
+    // Update local storage and apply class to HTML element when isDarkMode changes
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.theme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.theme = "light";
+    }
+
+    // Cleanup: remove theme from local storage when isDarkMode is unset
+    return () => {
+      localStorage.removeItem("theme");
+    };
+  }, [isDarkMode]);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
   return (
-    <nav className="flex justify-between items-center p-[5px]">
+    <nav className="flex justify-between items-center p-[10px] shadow  dark:bg-black">
       <div className="flex text-[1.5rem] text-[#D375B9] items-center gap-2">
         <span>
           <svg
-            width="40"
-            height="40"
+            width="30"
+            height="30"
             viewBox="0 0 70 66"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +61,7 @@ export const NavBar: React.FC = () => {
         </span>
         <span>{t("home:YourNotes")} </span>
       </div>
-      <ul className="flex items-center justify-center gap-2 text-[28px]">
+      <ul className="flex items-center justify-center gap-4 md:gap-6 text-[28px]">
         <li>
           {" "}
           {Object.keys(lngs).map((lng) => (
@@ -50,15 +78,22 @@ export const NavBar: React.FC = () => {
             </button>
           ))}
         </li>
-        <li>
-          <FontAwesomeIcon
-            className="text-[32px] text-[#D375B9]"
-            icon={faMoon}
-          />
+        <li onClick={toggleDarkMode} className="w-[28px] h-[42px]">
+          {!isDarkMode ? (
+            <FontAwesomeIcon
+              className="text-[28px] text-[#D375B9]"
+              icon={faMoon}
+            />
+          ) : (
+            <FontAwesomeIcon
+              className="text-[28px] text-[#D375B9]"
+              icon={faSun}
+            />
+          )}
         </li>
         <li>
           <FontAwesomeIcon
-            className="text-[32px] text-[#D375B9]"
+            className="text-[28px] text-[#D375B9]"
             icon={faUser}
           />
         </li>
