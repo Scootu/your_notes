@@ -15,9 +15,9 @@ export const CheckTodo: React.FC<{
       }}
     >
       {!isClickCheck ? (
-        <div className="w-[30px] h-[30px] border rounded-full"></div>
+        <div className="w-[30px] h-[30px] border dark:border-[#4c4d57] rounded-full"></div>
       ) : (
-        <div className=" w-[30px] h-[30px] border rounded-full bg-[#D375B9] flex justify-center items-center ">
+        <div className=" w-[30px] h-[30px] border dark:border-transparent rounded-full bg-[#D375B9] flex justify-center items-center ">
           <FontAwesomeIcon className="text-white" icon={faCheck} />
         </div>
       )}
