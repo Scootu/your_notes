@@ -105,9 +105,8 @@ export const NavBar: React.FC = () => {
         <div className="p-[5px] w-[260px] h-[230px] bg-white border rounded-sm dark:bg-[#241229] ">
           <p className="px-8 py-6 text-[#D375B9]">hi Mohammed</p>
           <div className="">
-            <Link to={'/your_notes/home/edit'}>Modify User info</Link>
+            <Link to={"/your_notes/home/edit"}>Modify User info</Link>
             <Link to={"Logout"}></Link>
-            
           </div>
         </div>
       )}
