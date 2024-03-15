@@ -3,9 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../store/store";
+import { isBtnClick } from "../store/features/uiChange";
 
 export const NavBar: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isClick, setIsClick] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
   interface Language {
     nativeName: string;
@@ -97,16 +101,42 @@ export const NavBar: React.FC = () => {
             <FontAwesomeIcon
               className="text-[28px] text-[#D375B9] cursor-pointer"
               icon={faUser}
+              onClick={() => {
+                setIsClick(!isClick);
+                if (/Mobile|Android/.test(navigator.userAgent))
+                  dispatch(isBtnClick(isClick));
+              }}
             />
           </li>
         </ul>
       </nav>
-      {!/Mobile|Android/.test(navigator.userAgent) && (
-        <div className="p-[5px] w-[260px] h-[230px] bg-white border rounded-sm dark:bg-[#241229] ">
-          <p className="px-8 py-6 text-[#D375B9]">hi Mohammed</p>
-          <div className="">
-            <Link to={"/your_notes/home/edit"}>Modify User info</Link>
-            <Link to={"Logout"}></Link>
+      {!/Mobile|Android/.test(navigator.userAgent) && isClick && (
+        <div className="absolute top-[70px] right-[20px] px-[8px] py-[10px] w-[200px]  bg-white border rounded-md dark:bg-[#241229] ">
+          <p className="px-8 py-6 text-[#D375B9] text-center font-bold">
+            hi Mohammed
+          </p>
+          <div className="flex flex-col gap-2">
+            <Link to={"/your_notes/home/edit"} className="btn bg-[#7C8495]">
+              Modify User info
+            </Link>
+            <Link to={"/your_notes/login"} className="btn bg-[#D375B9]">
+              Logout
+            </Link>
+          </div>
+        </div>
+      )}
+      {/Mobile|Android/.test(navigator.userAgent) && isClick && (
+        <div className="fixed top-[60px] left-0 w-[100%] h-screen bg-[#000000BF] flex flex-col items-center justify-center z-100">
+          <p className="px-8 py-6 text-[#D375B9] text-center font-bold">
+            hi Mohammed
+          </p>
+          <div className="flex flex-col gap-2 px-[40px] w-full ">
+            <Link to={"/your_notes/home/edit"} className="btn bg-[#7C8495]">
+              Modify User info
+            </Link>
+            <Link to={"/your_notes/login"} className="btn bg-[#D375B9]">
+              Logout
+            </Link>
           </div>
         </div>
       )}

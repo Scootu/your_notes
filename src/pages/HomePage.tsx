@@ -2,7 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { TodoElement } from "../components/TodoElement";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { useAppSelector } from "../store/store";
 export const HomePage: React.FC = () => {
+  const state = useAppSelector((state) => state.ui).isClick;
+
   const [isFiltred, setIsFiltred] = useState<"All" | "Active" | "Completed">(
     "All"
   );
@@ -31,9 +34,15 @@ export const HomePage: React.FC = () => {
           placeholder="Create a new todo..."
         />
       </div>
-      <div className=" w-full relative  shadow flex justify-center">
-        <div className="absolute w-full bg-white rounded-t-md sm:max-w-[540px] ">
-          <ul className="max-h-[340px] overflow-y-scroll">
+      <div className=" w-full relative  shadow flex justify-center  ">
+        <div
+          className={
+            state 
+              ? "todoListUl"
+              : "todoListUl -z-10"
+          }
+        >
+          <ul className="relative max-h-[340px] overflow-y-scroll ">
             <TodoElement message={"Complete online javascirt course"} />
             <TodoElement message={"Complete online javascirt course"} />
             <TodoElement message={"Complete online javascirt course"} />
