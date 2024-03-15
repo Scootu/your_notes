@@ -48,7 +48,7 @@ export const NavBar: React.FC = () => {
   };
   return (
     <header>
-      <nav className="flex justify-between items-center p-[10px] shadow  dark:bg-[#241229]">
+      <nav className=" relative flex justify-between items-center p-[10px] shadow  dark:bg-[#241229] z-100">
         <div className="flex text-[1.5rem] text-[#D375B9] items-center gap-2">
           <span>
             <svg
@@ -126,7 +126,7 @@ export const NavBar: React.FC = () => {
         </div>
       )}
       {/Mobile|Android/.test(navigator.userAgent) && isClick && (
-        <div className="fixed top-[60px] left-0 w-[100%] h-screen bg-[#000000BF] flex flex-col items-center justify-center z-100">
+        <div className="fixed left-0 w-[100%] h-screen bg-[#000000BF] flex flex-col items-center justify-center z-10">
           <p className="px-8 py-6 text-[#D375B9] text-center font-bold">
             hi Mohammed
           </p>
