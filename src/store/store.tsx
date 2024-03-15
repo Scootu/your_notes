@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { notesData } from "./features/notesData";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { uiChange } from "./features/uiChange";
 export const store = configureStore({
-  reducer: notesData.reducer,
+  reducer: { noteData: notesData.reducer, ui: uiChange.reducer },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

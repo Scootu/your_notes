@@ -23,6 +23,12 @@ body {
 .inputHomeStyle {
   @apply bg-white dark:bg-[#25273D] dark:text-[#767992]  w-full;
 }
+.btn {
+  @apply w-full text-white p-[5px] text-center rounded-lg font-bold;
+}
+.todoListUl {
+  @apply absolute w-full bg-white dark:bg-transparent rounded-t-md sm:max-w-[540px];
+}
 @layer utilities {
   .direction {
     direction: rtl;
