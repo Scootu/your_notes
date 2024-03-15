@@ -37,7 +37,7 @@ export const HomePage: React.FC = () => {
       <div className=" w-full relative  shadow flex justify-center  ">
         <div
           className={
-            state 
+            !state 
               ? "todoListUl"
               : "todoListUl -z-10"
           }

@@ -6,7 +6,7 @@ interface ClickState {
 }
 // Define the initial state using that type
 const initialState: ClickState = {
-  isClick: /Mobile|Android/.test(navigator.userAgent) ? false : true,
+  isClick: false,
 };
 
 export const uiChange = createSlice({
