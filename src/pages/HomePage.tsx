@@ -11,7 +11,7 @@ export const HomePage: React.FC = () => {
   );
   const [isClickCheck, setIsClickCheck] = useState<boolean>(false);
   return (
-    <section className="py-[60px] px-[30px]">
+    <>
       <div className="px-4 py-2 flex items-center justify-center bg-white dark:bg-[#25273D] mx-auto sm:max-w-[540px] gap-3 shadow rounded-md mb-[1rem] ">
         <div
           className="w-[40px] h-[40px] flex justify-center items-center"
@@ -35,13 +35,7 @@ export const HomePage: React.FC = () => {
         />
       </div>
       <div className=" w-full relative  shadow flex justify-center  ">
-        <div
-          className={
-            !state 
-              ? "todoListUl"
-              : "todoListUl -z-10"
-          }
-        >
+        <div className={!state ? "todoListUl" : "todoListUl -z-10"}>
           <ul className="relative max-h-[340px] overflow-y-scroll ">
             <TodoElement message={"Complete online javascirt course"} />
             <TodoElement message={"Complete online javascirt course"} />
@@ -143,6 +137,6 @@ export const HomePage: React.FC = () => {
           )}
         </div>
       </div>
-    </section>
+    </>
   );
 };

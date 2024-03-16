@@ -16,7 +16,10 @@ i18next
           btnSignup: "Complete signup",
           Login: "Login",
           Back: "Back",
-
+          modify: "Modify User Information",
+          save: "Save",
+          statusS: "User information saved",
+          statusF: "Information save process failed",
           "Email must not be empty": "Email must not be empty",
           "Password must not be empty": "Password must not be empty",
           "Passwords do not match": "Passwords do not match",
@@ -26,6 +29,8 @@ i18next
             "birthday year need to be a number",
           "Already have an account!": "Already have an account!",
           "Don't have an account!": "Don't have an account!",
+          "Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and special characters":
+            "Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and special characters",
         },
         validation: {
           email: "Email",
@@ -46,6 +51,10 @@ i18next
           CompleteSignup: "إكمال إنشاء حساب",
           Login: "تسجيل الدخول",
           Back: "للخلف",
+          modify: "تعديل بيانات الحساب",
+          save: "حفظ التعديلات",
+          statusS: "تمت العملية بنجاح",
+          statusF: "عملية الحفظ فشلت",
           "Email must not be empty": "البريد الإلكتروني يجب ألا يكون فارغا",
           "Password must not be empty": "الرقم السري يجب ألا يكون فارغا",
           "Passwords do not match": "الرقم السري غير متطابق",
@@ -54,6 +63,8 @@ i18next
           "userPhone needs to be not empty": "رقم الهاتف يجب ألا يكون فارغا",
           "Already have an account!": "!تمتلك حساب بالفعل",
           "Don't have an account!": "!تمتلك حساب بالفعل",
+          "Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and special characters":
+            "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتتضمن أحرفًا كبيرة وصغيرة وأرقامًا وأحرفًا خاصة",
         },
         validation: {
           email: "الحساب",

@@ -9,7 +9,9 @@ export const Roote: React.FC = () => {
         className="w-full bg-cover bg-no-repeat h-[200px] dark:bg-[#000000c9]"
         style={{ backgroundImage: "url('https://i.ibb.co/HDzfx4H/Cover.png'" }}
       >
-        <Outlet />
+        <section className="py-[60px] px-[30px]">
+          <Outlet />
+        </section>
       </div>
       {/* <img
         className="w-full bg-cover bg-no-repeat h-[200px] absolute pointer-events-none z-0"
