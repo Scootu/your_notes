@@ -11,7 +11,7 @@ import { Form, Link, useActionData } from "react-router-dom";
 
 export const SigninPage = () => {
   const { t, i18n } = useTranslation();
-  type Errors = {
+ type Errors = {
     email?: string;
     password?: string;
     confirmPassword?: string;

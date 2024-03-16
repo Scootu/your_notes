@@ -32,6 +32,56 @@ const router = createBrowserRouter([
       {
         path: "edit/",
         element: <EditPage />,
+        action: async ({ request }) => {
+          interface Error {
+            [key: string]: string; // Allow any string key and string value
+          }
+          const formData = await request.formData();
+
+          let errors: Error = {}; // Initialize errors object
+          for (const [name, value] of formData.entries()) {
+            if (value === "") {
+              errors[name] = `${name} needs to be not empty`;
+            }
+            let valN: string = value.toString();
+
+            if (name === "birthdayYear" && isNaN(parseInt(valN))) {
+              errors[name] = "birthday year need to be a number";
+            } else if (
+              name === "birthdayYear" &&
+              (parseInt(valN) >= 2024 || parseInt(valN) <= 1900)
+            ) {
+              errors[name] = "Enter a valide birthday year";
+            }
+            //check password validity
+            if (name === "userPassword") {
+              const password = value.toString();
+              // Check if password meets the criteria for a strong password
+              if (
+                !(
+                  (
+                    password.length >= 8 &&
+                    /[a-z]/.test(password) && // At least one lowercase letter
+                    /[A-Z]/.test(password) && // At least one uppercase letter
+                    /\d/.test(password) && // At least one digit
+                    /[!@#$%^&*()_+{}\[\]:;<>,.?~\\|\-=]/.test(password)
+                  ) // At least one special character
+                )
+              ) {
+                errors[name] =
+                  "Password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and special characters";
+              }
+            }
+          }
+          if (Object.values(errors).length === 0) {
+            errors.status = "succeed";
+          } else {
+            errors.status = "failed";
+          }
+          console.log(errors);
+
+          return errors;
+        },
       },
     ],
     // loader: () => {
@@ -108,6 +158,7 @@ const router = createBrowserRouter([
           }
         }
       }
+
       return errors;
     },
   },
