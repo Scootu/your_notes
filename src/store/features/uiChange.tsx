@@ -6,7 +6,7 @@ interface ClickState {
 }
 // Define the initial state using that type
 const initialState: ClickState = {
-  isClick: false,
+  isClick: true,
 };
 
 export const uiChange = createSlice({
@@ -15,7 +15,6 @@ export const uiChange = createSlice({
   reducers: {
     isBtnClick(state, action) {
       state.isClick = action.payload;
-      console.log(action.payload);
     },
   },
 });
